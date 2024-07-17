@@ -1,4 +1,4 @@
-# Kubernetes by Example
+# K8s: a gentle introduction
 
 This repository contains all the materials used in the presentation "K8s: a gentle introduction" by [Giovanni Antonioni](https://github.com/giovaz94).
 
