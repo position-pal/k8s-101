@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ping-app
+  template:
+    metadata:
+      labels:
+        app: ping-app
+    spec:
+      containers:
+      - name: ping-app
+        image: giovaz94/ping-app:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PONG_SERVICE_URL
+          value: "http://pong-service.pong-namespace.svc.cluster.local:5001/pong"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ping-service
+spec:
+  selector:
+    app: ping-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+      nodePort: 30080
+  type: NodePort
